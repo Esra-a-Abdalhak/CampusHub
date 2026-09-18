@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مشروع الخوارزميات — إدارة المهام</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><img src="iusr-logo.jpeg" alt="شعار IUSR"></div>
+        <div>
+          <strong>مشروع الخوارزميات</strong>
+          <small>إدارة المشاريع والمهام</small>
+        </div>
+        <span class="online-dot"></span>
+      </div>
+
+      <nav class="main-nav">
+        <button class="nav-item active" data-page="board"><span>▤</span> لوحة المهام</button>
+        <button class="nav-item" data-page="sorting"><span>↕</span> ترتيب المهام</button>
+        <button class="nav-item" data-page="effort"><span>Σ</span> جهد المشروع</button>
+        <button class="nav-item" data-page="report"><span>▤</span> تقرير الإنجاز</button>
+        <button class="nav-item" data-page="members"><span>♙</span> أعضاء الفريق</button>
+      </nav>
+
+      <div class="side-section-title">المشاريع <span id="projectCount">0</span></div>
+      <div id="projectList" class="project-list"></div>
+      <div class="project-side-actions">
+        <button id="newProjectBtn" class="new-project-side">+ مشروع جديد</button>
+      </div>
+
+    </aside>
+
+    <main class="content">
+      <section id="board" class="page active-page">
+        <div class="hero-row">
+          <div>
+            <h1>إدارة المهام</h1>
+          </div>
+          <button id="newTaskBtn" class="primary-btn">+ إضافة مهمة</button>
+        </div>
+
+        <div class="kanban" id="kanban"></div>
+
+        <section class="activity-panel">
+          <div class="section-head"><div><h3>سجل تغييرات الحالة</h3></div><button id="clearActivityBtn" class="clear-log-btn" type="button">تنظيف السجل</button></div>
+          <div id="activityLog"></div>
+        </section>
+      </section>
+
+      <section id="sorting" class="page">
+        <div class="page-title sorting-title">
+          <div>
+            <h1>ترتيب المهام</h1>
+          </div>
+          <div class="sort-controls">
+            <select id="sortKey" aria-label="طريقة الترتيب">
+              <option value="priority">الأولوية</option>
+              <option value="due_date">التاريخ الأقرب</option>
+            </select>
+            <button id="sortBtn" class="primary-btn" type="button">ترتيب ومقارنة</button>
+          </div>
+        </div>
+
+        <div class="algorithm-grid sorting-algorithms">
+          <article class="algorithm-card">
+            <div class="algo-head">
+              <span class="algo-badge">Merge</span>
+              <strong>Merge Sort</strong>
+              <span id="mergeTime">— ms</span>
+            </div>
+            <p class="algorithm-description">تقسيم القائمة إلى نصفين ثم دمج الأجزاء المرتبة.</p>
+            <ol id="mergeList" class="sorted-list"><li class="sort-placeholder">اضغط «ترتيب ومقارنة» لعرض النتيجة.</li></ol>
+          </article>
+
+          <article class="algorithm-card">
+            <div class="algo-head">
+              <span class="algo-badge quick">Quick</span>
+              <strong>Quick Sort</strong>
+              <span id="quickTime">— ms</span>
+            </div>
+            <p class="algorithm-description">اختيار Pivot وتقسيم العناصر حوله ثم الاستدعاء الذاتي.</p>
+            <ol id="quickList" class="sorted-list"><li class="sort-placeholder">اضغط «ترتيب ومقارنة» لعرض النتيجة.</li></ol>
+          </article>
+        </div>
+
+        <div class="analysis-box sorting-analysis">
+          <h3>تحليل التعقيد</h3>
+          <div class="analysis-cols">
+            <div><b>Merge Sort</b><span>أفضل: O(n log n) — أسوأ: O(n log n)</span></div>
+            <div><b>Quick Sort</b><span>أفضل/متوسط: O(n log n) — أسوأ: O(n²)</span></div>
+            <div><b>المقارنة</b><span>الزمن الظاهر هو زمن التنفيذ الفعلي للخوارزميات على بيانات المهام الحالية.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="effort" class="page">
+        <div class="page-title">
+          <div><h1>جهد المشروع</h1></div>
+          <div class="effort-total"><span>إجمالي الجهد</span><strong id="effortTotal">0 ساعة</strong></div>
+        </div>
+        <div class="tree-panel">
+          <div id="effortTree" class="effort-tree"></div>
+        </div>
+        <div class="analysis-box">
+          <h3>كيف تعمل الدالة؟</h3>
+          <p>تبدأ من جذر المشروع، تقسمه منطقيًا إلى فروع ومهام فرعية، تحسب وقت كل عقدة، ثم تجمع النتائج أثناء العودة من الاستدعاء الذاتي. التعقيد <b>O(n)</b> لأن كل مهمة تُزار مرة واحدة، وStack Call يحتفظ بمسار الاستدعاءات النشطة.</p>
+        </div>
+      </section>
+
+      <section id="members" class="page">
+        <div class="page-title">
+          <div>
+            <h1>أعضاء الفريق</h1>
+          </div>
+          <button id="newMemberBtn" class="primary-btn" type="button">+ إضافة عضو جديد</button>
+        </div>
+        <section class="members-panel">
+          <div class="members-head"><strong>الأعضاء المسجلون</strong><span id="memberCount">0 عضو</span></div>
+          <div id="membersList" class="members-list"></div>
+        </section>
+      </section>
+
+      <section id="report" class="page">
+        <div class="page-title">
+          <div><h1>تقرير الإنجاز</h1></div>
+          <div class="report-total"><strong id="reportPercent">0%</strong><span>إنجاز المشروع</span></div>
+        </div>
+        <div class="report-card">
+          <h3>إنجاز أعضاء الفريق</h3>
+          <div id="memberReport"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div id="modal" class="modal"></div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js?v=20260918-members2"></script>
+</body>
+</html>
